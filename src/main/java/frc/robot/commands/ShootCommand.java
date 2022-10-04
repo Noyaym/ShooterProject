@@ -19,6 +19,8 @@ public class ShootCommand extends CommandBase {
     private boolean shooterInSpeed;
     private boolean visionSee;
     private boolean turretInPose;
+    private double angle;
+    private double speed;
 
     public ShootCommand(Shood sh, Tower tow, Turret tur, boolean isAutonomus, ShoodUtilities util) {
         this.sh = sh;
@@ -31,10 +33,12 @@ public class ShootCommand extends CommandBase {
     @Override
     public void execute() {
         dis = 0; //need to read from vision somehow
-        sh.setHoodAngle(util.calculate(dis)[0]);
-        sh.setShooterSpeed(util.calculate(dis)[1]);
-        hoodInPos = Math.abs(sh.getHoodAngle()-Constants.WRONG_ANGLE)<=Constants.ANGLE_ER;
-        shooterInSpeed = Math.abs(sh.getShooterSpeed()-Constants.WRONG_SPEED)<=Constants.SPEED_ER;
+        angle = util.calculate(dis)[0];
+        speed = util.calculate(dis)[1];
+        sh.setHoodAngle(angle);
+        sh.setShooterSpeed(speed);
+        hoodInPos = Math.abs(sh.getHoodAngle()-angle)<=Constants.ANGLE_ER;
+        shooterInSpeed = Math.abs(sh.getShooterSpeed()-speed)<=Constants.SPEED_ER;
         visionSee = true; //need to read vision
         turretInPose = tur.isInPosition();
         if (hoodInPos && shooterInSpeed && visionSee && turretInPose) {
