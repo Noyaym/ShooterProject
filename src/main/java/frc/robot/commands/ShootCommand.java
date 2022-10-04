@@ -31,10 +31,14 @@ public class ShootCommand extends CommandBase {
     }
 
     @Override
-    public void execute() {
+    public void initialize() {
         dis = 0; //need to read from vision somehow
         angle = util.calculate(dis)[0];
         speed = util.calculate(dis)[1];
+    }
+
+    @Override
+    public void execute() {
         sh.setHoodAngle(angle);
         sh.setShooterSpeed(speed);
         hoodInPos = Math.abs(sh.getHoodAngle()-angle)<=Constants.ANGLE_ER;
