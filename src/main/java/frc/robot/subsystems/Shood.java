@@ -41,6 +41,12 @@ public class Shood extends SubsystemBase {
     //also add the dashboard stuff and any necessary functions I might have forgotten, yay!
 
     public double getHoodAngle() {
+        if (limitTopReached()) {
+            return 0;
+        }
+        if (limitBotReached()) {
+            return 90;
+        }
         return 0;
     }
 
@@ -51,6 +57,26 @@ public class Shood extends SubsystemBase {
     }
     public void setShooterSpeed(double speed) {
     }
+
+    public void setHoodPower(double p) {
+    }
+    public void setHoodVel(double v) {
+    }
+    public void setShootPower(double p) {
+    }
+
+    public void setNeutralModeHood(boolean isBrake) {
+
+    }
+
+    public boolean limitTopReached() {
+        return limswTop.get();
+    }
+    public boolean limitBotReached() {
+        return limswBot.get();
+    }
+
+
 
 
 
