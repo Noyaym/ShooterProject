@@ -21,6 +21,7 @@ public class ShootCommand extends CommandBase {
     private boolean turretInPose;
     private double angle;
     private double speed;
+    private int countdown;
 
     public ShootCommand(Shood sh, Tower tow, Turret tur, boolean isAutonomus, ShoodUtilities util) {
         this.sh = sh;
@@ -35,6 +36,7 @@ public class ShootCommand extends CommandBase {
         dis = 0; //need to read from vision somehow
         angle = util.calculate(dis)[0];
         speed = util.calculate(dis)[1];
+        countdown = 100;
     }
 
     @Override
@@ -47,13 +49,14 @@ public class ShootCommand extends CommandBase {
         turretInPose = tur.isInPosition();
         if (hoodInPos && shooterInSpeed && visionSee && turretInPose) {
             tow.setTowerMode(true);
+            countdown-=1;
         }
         
     }
 
     @Override
     public boolean isFinished() {
-        if (isAutonomus) {
+        if (isAutonomus && countdown==0) {
             return true; //need to return true a few seconds after tower
             //mode is set to true for the first time
         }
