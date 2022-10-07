@@ -47,9 +47,16 @@ public class RobotContainer {
   private static RobotContainer me;
   private final Shood sh;
 
-  public RobotContainer() {
+  private RobotContainer() {
     me = this;
     sh = new Shood();
+  }
+
+  public RobotContainer getRobotContainer() {
+    if (me==null) {
+      return new RobotContainer();
+    }
+    return me;
   }
 
   public Shood getShood() {
