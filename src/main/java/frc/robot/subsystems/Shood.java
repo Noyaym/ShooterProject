@@ -42,10 +42,10 @@ public class Shood extends SubsystemBase {
 
     public double getHoodAngle() {
         if (limitTopReached()) {
-            return 0;
+            hoodM.setSelectedSensorPosition(0);
         }
         if (limitBotReached()) {
-            return 90;
+            hoodM.setSelectedSensorPosition(90);
         }
         return 0;
     }
