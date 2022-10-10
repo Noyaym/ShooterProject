@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Calibrate;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shood;
@@ -61,6 +62,11 @@ public class RobotContainer {
 
   public Shood getShood() {
     return this.sh;
+  }
+
+  public void onEnable() {
+    sh.setNeutralModeHood(true);
+    new Calibrate(sh).schedule();
   }
 
 }
