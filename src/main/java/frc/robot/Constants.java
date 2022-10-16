@@ -29,6 +29,7 @@ public final class Constants {
     public static final double WRONG_ANGLE = 0;
     public static final double WRONG_SPEED = 0;
     public static final double CALIBRATION_SPEED = 0;
+    public static final double[][] LOOK_UP_TABLE = new double[10][10];
     
 
 
