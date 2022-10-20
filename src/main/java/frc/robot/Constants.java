@@ -30,7 +30,7 @@ public final class Constants {
     public static final double inch = 0.0254;
     public static final int hoogearRatio = 0;
     public static final int pulsePerRotation = 2048;
-    public static final double pulsesPerangle = hoogearRatio *pulsePerRotation / 360;
+    public static final double pulsesPerangle = hoogearRatio *pulsePerRotation;
     public static final double diamShoot = 6*inch;
     public static final double peremiterShoot = diamShoot*Math.PI;
     public static final int gearRatioS = 1;
@@ -43,6 +43,15 @@ public final class Constants {
     public static final double shooks=0;
     public static final double shookv=0;
     public static final double shookv2=0;
+
+
+    public static final double commandKp = 0;
+    public static final double commandKi = 0;
+    public static final double commandKd = 0;
+
+
+
+
     public static final double[][] LOOK_UP_TABLE = new double[10][10];
     
 

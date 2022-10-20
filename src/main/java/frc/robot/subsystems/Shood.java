@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -12,6 +13,7 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.ShootThroughDashBoard;
@@ -88,13 +90,20 @@ public class Shood extends SubsystemBase {
         hoodM.set(ControlMode.PercentOutput, p);
     }
     public void setHoodVel(double v) {
-        hoodM.set(ControlMode.Velocity,v*Constants.pulsesPerangle/10,DemandType.ArbitraryFeedForward,sff1.calculate(v));
+        hoodM.set(ControlMode.Velocity,v*Constants.pulsesPerangle/10,
+        DemandType.ArbitraryFeedForward,sff1.calculate(v));
     }
     public void setShootPower(double p) {
         shooterM.set(ControlMode.PercentOutput, p);
     }
 
     public void setNeutralModeHood(boolean isBrake) {
+        if (isBrake) {
+            hoodM.setNeutralMode(NeutralMode.Brake);
+        }
+        else {
+            hoodM.setNeutralMode(NeutralMode.Coast);
+        }
 
     }
 
@@ -107,8 +116,21 @@ public class Shood extends SubsystemBase {
 
     @Override
     public void initSendable(SendableBuilder builder) {
-        SmartDashboard.putNumber("wanted velocity", 0);
-        SmartDashboard.putNumber("wanted angle", 0);
+        SmartDashboard.putNumber("target velocity", 0);
+        SmartDashboard.putNumber("target angle", 0);
+
+
+        builder.addDoubleProperty("Velocity", this::getShooterSpeed, null);
+        builder.addDoubleProperty("Velocity", this::getHoodAngle, null);
+
+        SmartDashboard.putData("set velocity of shooter", new RunCommand(()-> setVDashboard(), this));
+
+
+    }
+
+    public void setVDashboard() {
+        double v = SmartDashboard.getNumber("target velocity", 0);
+        setShooterSpeed(v);
     }
 
 

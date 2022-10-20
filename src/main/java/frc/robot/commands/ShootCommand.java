@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shood;
@@ -22,6 +23,7 @@ public class ShootCommand extends CommandBase {
     private double angle;
     private double speed;
     private int countdown;
+    private PIDController PID;
 
     public ShootCommand(Shood sh, Tower tow, Turret tur, boolean isAutonomus, ShoodUtilities util) {
         this.sh = sh;
@@ -29,6 +31,7 @@ public class ShootCommand extends CommandBase {
         this.tur = tur;
         this.isAutonomus = isAutonomus;
         this.util = util;
+        this.PID = new PIDController(Constants.commandKp, Constants.commandKi, Constants.commandKd);
     }
 
     @Override
@@ -39,9 +42,14 @@ public class ShootCommand extends CommandBase {
         countdown = 100;
     }
 
+
+    private double PIDofV(double angle) {
+        return PID.calculate(angle - sh.getHoodAngle());
+    }
+
     @Override
     public void execute() {
-        sh.setHoodAngle(angle);
+        sh.setHoodVel(PIDofV(angle));
         sh.setShooterSpeed(speed);
         hoodInPos = Math.abs(sh.getHoodAngle()-angle)<=Constants.ANGLE_ER;
         shooterInSpeed = Math.abs(sh.getShooterSpeed()-speed)<=Constants.SPEED_ER;
