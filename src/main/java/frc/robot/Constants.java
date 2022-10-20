@@ -16,6 +16,7 @@ public final class Constants {
 
     public static final int hoodM_port_num = 0;
     public static final int shootM_port_num = 0;
+    public static final int controlerport=0;
     public static final int top_lim_num = 0;
     public static final int bot_lim_num = 0;
     public static final double Kp_shooter = 0;
@@ -24,11 +25,24 @@ public final class Constants {
     public static final double Kp_hood = 0;
     public static final double Ki_hood = 0;
     public static final double Kd_hood = 0;
+    public static final double hood_ks=0;
+    public static final double hood_kv=0;
+    public static final double inch = 0.0254;
+    public static final int hoogearRatio = 0;
+    public static final int pulsePerRotation = 2048;
+    public static final double pulsesPerangle = hoogearRatio *pulsePerRotation / 360;
+    public static final double diamShoot = 6*inch;
+    public static final double peremiterShoot = diamShoot*Math.PI;
+    public static final int gearRatioS = 1;
+    public static final double pulsesPerMeterS = gearRatioS * pulsePerRotation / peremiterShoot;
     public static final double SPEED_ER = 0;
     public static final double ANGLE_ER = 0;
     public static final double WRONG_ANGLE = 0;
     public static final double WRONG_SPEED = 0;
     public static final double CALIBRATION_SPEED = 0;
+    public static final double shooks=0;
+    public static final double shookv=0;
+    public static final double shookv2=0;
     public static final double[][] LOOK_UP_TABLE = new double[10][10];
     
 

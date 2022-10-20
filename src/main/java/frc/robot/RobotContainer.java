@@ -4,13 +4,20 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.Util;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Calibrate;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Shood;
+import frc.robot.subsystems.ShoodUtilities;
+import frc.robot.subsystems.Tower;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,7 +28,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
+  private final XboxController conrtl;
+  private final JoystickButton shoootButton;
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -32,7 +40,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    this.shoootButton.whenPressed(new ShootCommand(sh, tw, tr,false,utils));
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -47,10 +58,18 @@ public class RobotContainer {
 
   private static RobotContainer me;
   private final Shood sh;
+  private final Tower tw;
+  private final Turret tr;
+  private  ShoodUtilities utils;
 
   private RobotContainer() {
     me = this;
+    this.conrtl = new XboxController(Constants.controlerport);
+    this.shoootButton=new JoystickButton(this.conrtl,2);
     sh = new Shood();
+    tw = new Tower();
+    tr = new Turret();
+    
   }
 
   public RobotContainer getRobotContainer() {
