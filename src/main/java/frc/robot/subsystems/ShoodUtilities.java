@@ -12,7 +12,7 @@ public class ShoodUtilities {
                 return i;
             }
         }
-        return Constants.LOOK_UP_TABLE.length-1;
+        return Constants.LOOK_UP_TABLE.length;
     }
 
 
@@ -21,7 +21,7 @@ public class ShoodUtilities {
         if (I==0) {
             return 0;
         }
-        if (I==Constants.LOOK_UP_TABLE.length-1) {
+        if (I==Constants.LOOK_UP_TABLE.length){
             return 0;
         }
         double tot = Constants.LOOK_UP_TABLE[0][I]-Constants.LOOK_UP_TABLE[0][I-1];
@@ -36,7 +36,10 @@ public class ShoodUtilities {
 
     public double calcVelocity(double x) {
         if (searchInTable(x)==0) {
-            return Constants.LOOK_UP_TABLE[1][searchInTable(x)];
+            return Constants.LOOK_UP_TABLE[1][0];
+        }
+        if(searchInTable(x)==Constants.LOOK_UP_TABLE.length) {
+            return Constants.LOOK_UP_TABLE[1][Constants.LOOK_UP_TABLE.length-1];
         }
         double vel = Constants.LOOK_UP_TABLE[1][searchInTable(x)];
         double downvel = Constants.LOOK_UP_TABLE[1][searchInTable(x)-1];
@@ -48,8 +51,12 @@ public class ShoodUtilities {
 
     public double calcAngle(double x) {
         if (searchInTable(x)==0) {
-            return Constants.LOOK_UP_TABLE[2][searchInTable(x)];
+            return Constants.LOOK_UP_TABLE[2][0];
         }
+        if(searchInTable(x)==Constants.LOOK_UP_TABLE.length) {
+            return Constants.LOOK_UP_TABLE[2][Constants.LOOK_UP_TABLE.length-1];
+        }
+
         double angle = Constants.LOOK_UP_TABLE[2][searchInTable(x)];
         double downangle = Constants.LOOK_UP_TABLE[2][searchInTable(x)-1];
         double tot = angle - downangle;
