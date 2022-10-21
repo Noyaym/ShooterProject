@@ -67,9 +67,9 @@ public class Shood extends SubsystemBase {
             hoodM.setSelectedSensorPosition(0);
         }
         if (limitBotReached()) {
-            hoodM.setSelectedSensorPosition(90*Constants.pulsesPerangle);
+            hoodM.setSelectedSensorPosition(90/360*Constants.pulsesPer360angle);
         }
-        return hoodM.getSelectedSensorPosition()/Constants.pulsesPerangle;
+        return hoodM.getSelectedSensorPosition()/Constants.pulsesPer360angle*360;
     }
 
     public double getShooterSpeed() {
@@ -89,8 +89,8 @@ public class Shood extends SubsystemBase {
     public void setHoodPower(double p) {
         hoodM.set(ControlMode.PercentOutput, p);
     }
-    public void setHoodVel(double v) {
-        hoodM.set(ControlMode.Velocity,v*Constants.pulsesPerangle/10,
+    public void setHoodVel(double v) { // v is in rotations per second
+        hoodM.set(ControlMode.Velocity,v*Constants.pulsesPer360angle/10,
         DemandType.ArbitraryFeedForward,sff1.calculate(v));
     }
     public void setShootPower(double p) {

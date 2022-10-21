@@ -30,7 +30,7 @@ public final class Constants {
     public static final double inch = 0.0254;
     public static final int hoogearRatio = 0;
     public static final int pulsePerRotation = 2048;
-    public static final double pulsesPerangle = hoogearRatio *pulsePerRotation;
+    public static final double pulsesPer360angle = hoogearRatio *pulsePerRotation;
     public static final double diamShoot = 6*inch;
     public static final double peremiterShoot = diamShoot*Math.PI;
     public static final int gearRatioS = 1;
