@@ -20,12 +20,14 @@ public class ShootCommand extends CommandBase {
     private boolean shooterInSpeed;
     private boolean visionSee;
     private boolean turretInPose;
+    private boolean lookuptablcalc;
     private double angle;
     private double speed;
     private int countdown;
     private PIDController PID;
 
     public ShootCommand(Shood sh, Tower tow, Turret tur, boolean isAutonomus, ShoodUtilities util) {
+        this.lookuptablcalc = true;
         this.sh = sh;
         this.tow = tow;
         this.tur = tur;
@@ -37,8 +39,12 @@ public class ShootCommand extends CommandBase {
     @Override
     public void initialize() {
         dis = 0; //need to read from vision somehow
+        if(lookuptablcalc){
         angle = util.calculate(dis)[0];
-        speed = util.calculate(dis)[1];
+        speed = util.calculate(dis)[1];}else{
+            speed = util.decider(dis)[0];
+            angle = util.decider(dis)[1];
+        }
         countdown = 100;
     }
 
