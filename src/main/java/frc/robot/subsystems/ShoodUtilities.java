@@ -73,6 +73,11 @@ public class ShoodUtilities {
         db[1] = calcAngle(dis);
         return db;
     }
+
+
+
+
+
     public static double todegsin(double degr){
         return Math.toDegrees(Math.sin(Math.toRadians(degr)));
     }
@@ -82,7 +87,9 @@ public class ShoodUtilities {
     }
 
     public double[] decider(double disitan){
-        ArrayList<ArrayList<Double>> posblsoultion = new ArrayList<ArrayList<Double>>(calcanglNLT(disitan));
+        ArrayList<ArrayList<Double>> posblsoultion = new 
+        ArrayList<ArrayList<Double>>(calcanglNLT(disitan));
+
         int i=0;
         int maxi=0;
         double sum = posblsoultion.get(0).get(0)*Constants.shootratio+posblsoultion.get(1).get(0)*Constants.hoodratio;
@@ -103,22 +110,24 @@ public class ShoodUtilities {
         d1.add(new ArrayList<Double>());
         d1.add(new ArrayList<Double>());
         for (double i = 0.01; i < 89.99; i+=0.01) {
-            double spedd = calcvelNLT(i, dist);
-            switch ((int)spedd) {
+            double speed = calcvelNLT(i, dist);
+            switch ((int)speed) {
                 case 0:
                     
                     break;
             
                 default:
-                    d1.get(0).add(spedd);
+                    d1.get(0).add(speed);
                     d1.get(1).add(i);
                     break;
             }
         }
         return d1;
     }
+
+    
     public double calcvelNLT(double deg,double dist){
-        double speed =0;
+
         for(double i = Constants.minspeed;i<Constants.maxspeed;i+=0.01){
             double distV = calcdist(deg,i);
             if(distV-dist<=0.1&&distV>=-0.1){
@@ -127,7 +136,7 @@ public class ShoodUtilities {
 
 
         }
-        return speed;
+        return 0;
     }
     public double calcdist(double angle,double speed){
         double angl1 = angle/2 +Math.PI/4;
