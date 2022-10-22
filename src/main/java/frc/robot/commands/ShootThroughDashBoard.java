@@ -13,6 +13,7 @@ public class ShootThroughDashBoard extends CommandBase{
     private double angle;
     private boolean hoodInPos;
     private boolean shooterInSpeed;
+    private boolean islookuptable;
     private PIDController PID;
 
     public ShootThroughDashBoard(Shood sh) {
