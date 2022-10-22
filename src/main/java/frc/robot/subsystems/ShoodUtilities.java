@@ -121,7 +121,7 @@ public class ShoodUtilities {
         double speed =0;
         for(double i = Constants.minspeed;i<Constants.maxspeed;i+=0.01){
             double distV = calcdist(deg,i);
-            if(distV-dist<=0.1&&distV>=-0.1){
+            if(distV-dist<=0.1&&distV-dist>=-0.1){
                 return i;
             }
 
