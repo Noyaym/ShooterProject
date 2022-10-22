@@ -45,8 +45,8 @@ public class Shood extends SubsystemBase {
         limswBot = new DigitalInput(Constants.bot_lim_num);
         PIDshoot = new PIDController(Constants.Kp_shooter, 
         Constants.Ki_shooter, Constants.Kd_shooter);
-        PIDhood = new PIDController(Constants.Kp_hood, 
-        Constants.Ki_hood, Constants.Kd_hood);
+        PIDhood = new PIDController(Constants.commandKp, 
+        Constants.commandKi, Constants.commandKd);
         sff1 = new SimpleMotorFeedforward(Constants.hood_ks, Constants.hood_kv);
 
         shooterM.config_kP(0,Constants.Kp_shooter);
