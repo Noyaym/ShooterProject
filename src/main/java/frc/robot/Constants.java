@@ -60,9 +60,9 @@ public final class Constants {
     public static final double H=0;
     public static final double K=0;
     public static final double maxspeed = Math.sqrt(H*g*2/
-    ShoodUtilities.todegsin(89.999)*(ShoodUtilities.todegsin(89.99)-g*K));
+    ShoodUtilities.todegsin(89.999)*(ShoodUtilities.todegsin(89.999)-g*K));
     public static final double minspeed = Math.sqrt(H*g*2/
-    ShoodUtilities.todegsin(0.001)*(ShoodUtilities.todegsin(0.01)-g*K));
+    ShoodUtilities.todegsin(0.001)*(ShoodUtilities.todegsin(0.001)-g*K));
     public static double hieght =0;
     public static double T = 2*Math.sqrt(2*H/g);
     public static double hoodratio =0;

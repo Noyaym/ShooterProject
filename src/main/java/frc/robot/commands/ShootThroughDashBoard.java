@@ -18,7 +18,8 @@ public class ShootThroughDashBoard extends CommandBase{
 
     public ShootThroughDashBoard(Shood sh) {
         this.sh=sh;
-        this.PID = new PIDController(Constants.commandKp, Constants.commandKi, Constants.commandKd);
+        this.PID = new PIDController(Constants.commandKp, 
+        Constants.commandKi, Constants.commandKd);
         
     }
 
@@ -34,7 +35,7 @@ public class ShootThroughDashBoard extends CommandBase{
 
     @Override
     public void execute() {
-        sh.setHoodAngle(PIDofV(angle));
+        sh.setHoodVel(PIDofV(angle));
         sh.setShooterSpeed(v);
         hoodInPos = Math.abs(sh.getHoodAngle()-angle)<=Constants.ANGLE_ER;
         shooterInSpeed = Math.abs(sh.getShooterSpeed()-v)<=Constants.SPEED_ER;
