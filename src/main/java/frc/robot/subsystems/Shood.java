@@ -125,13 +125,18 @@ public class Shood extends SubsystemBase {
         builder.addDoubleProperty("Velocity", this::getHoodAngle, null);
 
         SmartDashboard.putData("set velocity of shooter", new RunCommand(()-> setVDashboard(), this));
-
+        SmartDashboard.putData("set angle of hood", new RunCommand(()-> setVHood(), this));
 
     }
 
     public void setVDashboard() {
         double v = SmartDashboard.getNumber("target velocity", 0);
         setShooterSpeed(v);
+    }
+
+    public void setVHood() {
+        double angle = SmartDashboard.getNumber("target angle", 0);
+        setHoodVel(PIDhood.calculate(angle - getHoodAngle()));
     }
 
 
