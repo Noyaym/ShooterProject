@@ -40,12 +40,13 @@ public class Shood extends SubsystemBase {
         
         shooterM.configFactoryDefault();
         hoodM.configFactoryDefault();
+        
         limswTop = new DigitalInput(Constants.top_lim_num);
         limswBot = new DigitalInput(Constants.bot_lim_num);
-        //PIDshoot = new PIDController(Constants.Kp_shooter, 
-        //Constants.Ki_shooter, Constants.Kd_shooter);
-        PIDhood = new PIDController(Constants.commandKp, 
-        Constants.commandKi, Constants.commandKd);
+        PIDshoot = new PIDController(Constants.Kp_shooter, 
+        Constants.Ki_shooter, Constants.Kd_shooter);
+        PIDhood = new PIDController(Constants.Kp_hood, 
+        Constants.Ki_hood, Constants.Kd_hood);
         sff1 = new SimpleMotorFeedforward(Constants.hood_ks, Constants.hood_kv);
 
         shooterM.config_kP(0,Constants.Kp_shooter);
@@ -124,7 +125,6 @@ public class Shood extends SubsystemBase {
         builder.addDoubleProperty("Velocity", this::getHoodAngle, null);
 
         SmartDashboard.putData("set velocity of shooter", new RunCommand(()-> setVDashboard(), this));
-        SmartDashboard.putData("set angle of hood", new RunCommand(()-> setVHood(), this));
 
 
     }
@@ -132,13 +132,6 @@ public class Shood extends SubsystemBase {
     public void setVDashboard() {
         double v = SmartDashboard.getNumber("target velocity", 0);
         setShooterSpeed(v);
-    }
-
-    public void setVHood() {
-        double angle=SmartDashboard.getNumber("target angle", 0);
-        setHoodVel(PIDhood.calculate(angle - this.getHoodAngle()));
-
-
     }
 
 
