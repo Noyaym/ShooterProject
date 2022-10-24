@@ -110,7 +110,8 @@ public class ShoodUtilities {
         d1.add(new ArrayList<Double>());
         d1.add(new ArrayList<Double>());
         for (double i = 0.01; i < 89.99; i+=0.01) {
-            double speed = calcvelNLT(i, dist);
+            double speed = calcvelNLT(Math.sqrt(3*Constants.g*2/
+            ShoodUtilities.todegsin(89.999)*(ShoodUtilities.todegsin(89.999)-Constants.g*Constants.K)),i, dist);
             switch ((int)speed) {
                 case 0:
                     
@@ -126,9 +127,9 @@ public class ShoodUtilities {
     }
 
     
-    public double calcvelNLT(double deg,double dist){
+    public double calcvelNLT(double maxspeed,double deg,double dist){
 
-        for(double i = Constants.minspeed;i<Constants.maxspeed;i+=0.01){
+        for(double i = Constants.minspeed;i<maxspeed;i+=0.01){
             double distV = calcdist(deg,i);
             if(distV-dist<=0.1&&distV-dist>=-0.1){
                 return i;
@@ -139,12 +140,14 @@ public class ShoodUtilities {
         return 0;
     }
     public double calcdist(double angle,double speed){
+        double H = Math.pow(speed,2)*Math.pow(todegsin(angle),2)/Constants.g*(2+Constants.K*Math.pow(speed, 2)*Math.pow(todegsin(angle),2));
+        double T = 2*Math.sqrt(2*H/Constants.g);
         double angl1 = angle/2 +Math.PI/4;
         double Va = speed*todegcosin(angle)/Math.sqrt(1+Constants.K*Math.pow(speed, 2)*
         (todegsin(angle)+Math.pow(todegcosin(angle), 2)*Math.log(todegsin(angl1)/todegcosin(angl1))));
-        double L = Va*Constants.T;
-        double Xa = Math.sqrt(L*Constants.H*(todegcosin(angle)/todegcosin(angle)));
-        double distan =quadeq(-Constants.H,Constants.H*L-((L-2*Xa)*Constants.hieght), Constants.hieght*(Math.pow(Xa, 2)));
+        double L = Va*T;
+        double Xa = Math.sqrt(L*H*(todegcosin(angle)/todegcosin(angle)));
+        double distan =quadeq(-H,H*L-((L-2*Xa)*Constants.hieght), Constants.hieght*(Math.pow(Xa, 2)));
         return distan;
 
     }
