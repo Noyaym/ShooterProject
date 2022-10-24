@@ -129,18 +129,28 @@ public class ShoodUtilities {
     
     public double calcvelNLT(double maxspeed,double deg,double dist){
 
-        for(double i = Constants.minspeed;i<maxspeed;i+=0.01){
+        for(double i = Constants.minspeed;i<maxspeed;i+=0.01){ //kinda think we should change the max min speed to just speeds we know the robot can reach.
             double distV = calcdist(deg,i);
-            if(distV-dist<=0.1&&distV-dist>=-0.1){
+            if(Math.abs(distV-dist)<=0.1&&calcH(i, deg)<Constants.maxH){ //added the H thing to the if
                 return i;
             }
 
 
         }
         return 0;
+    
     }
-    public double calcdist(double angle,double speed){
+
+    public double calcH(double speed, double angle) { //wrote H as a function
         double H = Math.pow(speed,2)*Math.pow(todegsin(angle),2)/Constants.g*(2+Constants.K*Math.pow(speed, 2)*Math.pow(todegsin(angle),2));
+        return H;
+    }
+
+
+
+
+    public double calcdist(double angle,double speed){
+        double H = calcH(speed, angle);
         double T = 2*Math.sqrt(2*H/Constants.g);
         double angl1 = angle/2 +Math.PI/4;
         double Va = speed*todegcosin(angle)/Math.sqrt(1+Constants.K*Math.pow(speed, 2)*
