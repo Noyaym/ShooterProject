@@ -57,14 +57,11 @@ public final class Constants {
     public static final double[][] LOOK_UP_TABLE = new double[10][10];
     
     public static final double g=0;
-    public static final double H=0;
+    public static double hieght =0;
+    private static final double H=hieght;
     public static final double K=0;
-    public static final double maxspeed = Math.sqrt(H*g*2/
-    ShoodUtilities.todegsin(89.999)*(ShoodUtilities.todegsin(89.999)-g*K));
     public static final double minspeed = Math.sqrt(H*g*2/
     ShoodUtilities.todegsin(0.001)*(ShoodUtilities.todegsin(0.001)-g*K));
-    public static double hieght =0;
-    public static double T = 2*Math.sqrt(2*H/g);
     public static double hoodratio =0;
     public static double shootratio =0;
 
