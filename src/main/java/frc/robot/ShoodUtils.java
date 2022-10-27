@@ -1,10 +1,10 @@
-package frc.robot.subsystems;
+package frc.robot;
 
 import java.util.ArrayList;
 
 import frc.robot.Constants;
 
-public class ShoodUtilities {
+public class ShoodUtils {
 
 
 
@@ -111,7 +111,7 @@ public class ShoodUtilities {
         d1.add(new ArrayList<Double>());
         for (double i = 0.01; i < 89.99; i+=0.01) {
             double speed = calcvelNLT(Math.sqrt(3*Constants.g*2/
-            ShoodUtilities.todegsin(89.999)*(ShoodUtilities.todegsin(89.999)-Constants.g*Constants.K)),i, dist);
+            ShoodUtils.todegsin(89.999)*(ShoodUtils.todegsin(89.999)-Constants.g*Constants.K)),i, dist);
             switch ((int)speed) {
                 case 0:
                     

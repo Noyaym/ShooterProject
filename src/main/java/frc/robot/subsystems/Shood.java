@@ -29,6 +29,7 @@ public class Shood extends SubsystemBase {
     private PIDController PIDshoot;
     private SimpleMotorFeedforward sff1;
     private PIDController PIDhood;
+    private PIDController PIDhoodPos;
     private boolean isBrake; //so we can set the hood motor to brake, if that's what we decide
 
 
@@ -48,6 +49,8 @@ public class Shood extends SubsystemBase {
         PIDhood = new PIDController(Constants.commandKp, 
         Constants.commandKi, Constants.commandKd);
         sff1 = new SimpleMotorFeedforward(Constants.hood_ks, Constants.hood_kv);
+
+        PIDhoodPos = new PIDController(Constants.hoodKp, Constants.hoodKi, Constants.hoodKd);
 
         shooterM.config_kP(0,Constants.Kp_shooter);
         shooterM.config_kI(0, Constants.Ki_shooter);
@@ -94,6 +97,13 @@ public class Shood extends SubsystemBase {
         hoodM.set(ControlMode.Velocity,v*Constants.pulsesPer360angle/10,
         DemandType.ArbitraryFeedForward,sff1.calculate(v));
     }
+
+
+public void setHoodPosition(double a) {
+    hoodM.set(ControlMode.Position, PIDhoodPos.calculate(a*Constants.pulsesPer360angle/360));
+}
+
+
     public void setShootPower(double p) {
         shooterM.set(ControlMode.PercentOutput, p);
     }
@@ -125,7 +135,7 @@ public class Shood extends SubsystemBase {
         builder.addDoubleProperty("Velocity", this::getHoodAngle, null);
 
         SmartDashboard.putData("set velocity of shooter", new RunCommand(()-> setVDashboard(), this));
-        SmartDashboard.putData("set angle of hood", new RunCommand(()-> setVHood(), this));
+        SmartDashboard.putData("set angle of hood", new RunCommand(()-> setPosHood(), this));
 
     }
 
@@ -134,10 +144,12 @@ public class Shood extends SubsystemBase {
         setShooterSpeed(v);
     }
 
-    public void setVHood() {
+    public void setPosHood() {
         double angle = SmartDashboard.getNumber("target angle", 0);
-        setHoodVel(PIDhood.calculate(angle - getHoodAngle()));
+        setHoodPosition(angle);
     }
+
+
 
 
 
