@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.subsystems.Shood.Utils;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -14,6 +16,7 @@ package frc.robot;
  */
 
 public final class Constants {
+
 
     public static final int hoodM_port_num = 0;
     public static final int shootM_port_num = 0;
@@ -64,7 +67,7 @@ public final class Constants {
     private static final double H = 0;
     public static final double K=0;
     public static final double minspeed = Math.sqrt(H*g*2/
-    ShoodUtils.todegsin(0.001)*(ShoodUtils.todegsin(0.001)-g*K));
+    Utils.todegsin(0.001)*(Utils.todegsin(0.001)-g*K));
     public static double hoodratio =0;
     public static double shootratio =0;
 

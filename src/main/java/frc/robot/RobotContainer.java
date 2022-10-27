@@ -71,7 +71,7 @@ public class RobotContainer {
     
   }
 
-  public RobotContainer getRobotContainer() {
+  public static RobotContainer getRobotContainer() {
     if (me==null) {
       return new RobotContainer();
     }

@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Shood;
+import frc.robot.subsystems.Shood.Shood;
 
 public class Calibrate extends CommandBase{
 
