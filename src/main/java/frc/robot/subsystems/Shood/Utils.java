@@ -1,10 +1,10 @@
-package frc.robot;
+package frc.robot.subsystems.Shood;
 
 import java.util.ArrayList;
 
 import frc.robot.Constants;
 
-public class ShoodUtils {
+public class Utils {
 
     public int searchInTable(double x) {
         for (int i = 0; i < Constants.LOOK_UP_TABLE.length; i++) {
@@ -69,7 +69,7 @@ public class ShoodUtils {
         return Math.toDegrees(Math.sin(Math.toRadians(degr)));
     }
 
-    public static double todegcosin(double degr) {
+    public static double toDegCos(double degr) {
         return Math.toDegrees(Math.cos(Math.toRadians(degr)));
 
     }
@@ -100,7 +100,7 @@ public class ShoodUtils {
         d1.add(new ArrayList<Double>());
         for (double i = 0.01; i < 89.99; i += 0.01) {
             double speed = calcvelNLT(Math.sqrt(3 * Constants.g * 2 /
-                    ShoodUtils.todegsin(89.999) * (ShoodUtils.todegsin(89.999) - Constants.g * Constants.K)), i, dist);
+                    Utils.todegsin(89.999) * (Utils.todegsin(89.999) - Constants.g * Constants.K)), i, dist);
             switch ((int) speed) {
                 case 0:
 
@@ -139,10 +139,10 @@ public class ShoodUtils {
         double H = calcH(speed, angle);
         double T = 2 * Math.sqrt(2 * H / Constants.g);
         double angl1 = angle / 2 + Math.PI / 4;
-        double Va = speed * todegcosin(angle) / Math.sqrt(1 + Constants.K * Math.pow(speed, 2) *
-                (todegsin(angle) + Math.pow(todegcosin(angle), 2) * Math.log(todegsin(angl1) / todegcosin(angl1))));
+        double Va = speed * toDegCos(angle) / Math.sqrt(1 + Constants.K * Math.pow(speed, 2) *
+                (todegsin(angle) + Math.pow(toDegCos(angle), 2) * Math.log(todegsin(angl1) / toDegCos(angl1))));
         double L = Va * T;
-        double Xa = Math.sqrt(L * H * (todegcosin(angle) / todegcosin(angle)));
+        double Xa = Math.sqrt(L * H * (toDegCos(angle) / toDegCos(angle)));
         double distan = quadeq(-H, H * L - ((L - 2 * Xa) * Constants.hieght), Constants.hieght * (Math.pow(Xa, 2)));
         return distan;
 

@@ -3,10 +3,10 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.ShoodUtils;
-import frc.robot.subsystems.Shood;
 import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Shood.Shood;
+import frc.robot.subsystems.Shood.Utils;
 
 public class ShootCommand extends CommandBase {
 
@@ -15,7 +15,7 @@ public class ShootCommand extends CommandBase {
     private Tower tow;
     private Turret tur;
     private boolean isAutonomus;
-    private ShoodUtils util;
+    private Utils util;
     private boolean hoodInPos;
     private boolean shooterInSpeed;
     private boolean visionSee;
@@ -26,7 +26,7 @@ public class ShootCommand extends CommandBase {
     private int countdown;
     private PIDController PID;
 
-    public ShootCommand(Shood sh, Tower tow, Turret tur, boolean isAutonomus, ShoodUtils util) {
+    public ShootCommand(Shood sh, Tower tow, Turret tur, boolean isAutonomus, Utils util) {
         this.lookuptablcalc = true;
         this.sh = sh;
         this.tow = tow;

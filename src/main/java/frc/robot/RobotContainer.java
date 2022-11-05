@@ -12,9 +12,10 @@ import frc.robot.commands.Calibrate;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Shood;
 import frc.robot.subsystems.Tower;
 import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Shood.Shood;
+import frc.robot.subsystems.Shood.Utils;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -40,7 +41,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    this.shoootButton.whenPressed(new ShootCommand(sh, tw, tr,false,utils));
+    this.shoootButton.whenPressed(new ShootCommand(shooterSubsystem, tw, tr,false,utils));
 
   }
 
@@ -56,19 +57,19 @@ public class RobotContainer {
 
 
   private static RobotContainer me;
-  private final Shood sh;
+  private final Shood shooterSubsystem;
   private final Tower tw;
   private final Turret tr;
-  private  ShoodUtils utils;
+  private  Utils utils;
 
   private RobotContainer() {
     me = this;
     this.conrtl = new XboxController(Constants.controlerport);
     this.shoootButton=new JoystickButton(this.conrtl,2);
-    sh = new Shood();
+    shooterSubsystem = new Shood();
     tw = new Tower();
     tr = new Turret();
-    
+    //userControllers = new User(shooterSubsystem.getShootingCommand());
   }
 
   public static RobotContainer getRobotContainer() {
@@ -79,12 +80,12 @@ public class RobotContainer {
   }
 
   public Shood getShood() {
-    return this.sh;
+    return this.shooterSubsystem;
   }
 
   public void onEnable() {
-    sh.setNeutralModeHood(true);
-    new Calibrate(sh).schedule();
+    shooterSubsystem.setNeutralModeHood(true);
+    new Calibrate(shooterSubsystem).schedule();
   }
 
 }
