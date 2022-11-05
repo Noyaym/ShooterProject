@@ -14,12 +14,9 @@ public class ShootThroughDashBoard extends CommandBase{
     private boolean hoodInPos;
     private boolean shooterInSpeed;
     private boolean islookuptable;
-    private PIDController PID;
 
     public ShootThroughDashBoard(Shood sh) {
         this.sh=sh;
-        this.PID = new PIDController(Constants.commandKp, 
-        Constants.commandKi, Constants.commandKd);
         
     }
 
@@ -29,13 +26,10 @@ public class ShootThroughDashBoard extends CommandBase{
         this.angle=SmartDashboard.getNumber("target angle", 0);
     }
 
-    private double PIDofV(double angle) {
-        return PID.calculate(angle - sh.getHoodAngle());
-    }
 
     @Override
     public void execute() {
-        sh.setHoodVel(PIDofV(angle));
+        sh.setHoodPosition(angle);
         sh.setShooterSpeed(v);
         hoodInPos = Math.abs(sh.getHoodAngle()-angle)<=Constants.ANGLE_ER;
         shooterInSpeed = Math.abs(sh.getShooterSpeed()-v)<=Constants.SPEED_ER;

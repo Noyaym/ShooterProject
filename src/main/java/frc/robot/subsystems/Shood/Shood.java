@@ -27,7 +27,7 @@ public class Shood extends SubsystemBase {
     private PIDController PIDshoot;
     private SimpleMotorFeedforward sff1;
     private PIDController PIDhood;
-    private PIDController PIDhoodPos;
+    //private PIDController PIDhoodPos;
     private boolean isBrake; // so we can set the hood motor to brake, if that's what we decide
 
     public Shood() {
@@ -41,11 +41,11 @@ public class Shood extends SubsystemBase {
         limswBot = new DigitalInput(Constants.bot_lim_num);
         PIDshoot = new PIDController(Constants.Kp_shooter,
                 Constants.Ki_shooter, Constants.Kd_shooter);
-        PIDhood = new PIDController(Constants.commandKp,
-                Constants.commandKi, Constants.commandKd);
+        //PIDhood = new PIDController(Constants.commandKp,
+                //Constants.commandKi, Constants.commandKd);
         sff1 = new SimpleMotorFeedforward(Constants.hood_ks, Constants.hood_kv);
 
-        PIDhoodPos = new PIDController(Constants.hoodKp, Constants.hoodKi, Constants.hoodKd);
+        //PIDhoodPos = new PIDController(Constants.hoodKp, Constants.hoodKi, Constants.hoodKd);
 
         shooterM.config_kP(0, Constants.Kp_shooter);
         shooterM.config_kI(0, Constants.Ki_shooter);
@@ -80,10 +80,6 @@ public class Shood extends SubsystemBase {
         return shooterM.getSelectedSensorVelocity() / Constants.pulsesPerMeterS * 10;
     }
 
-    public void setHoodAngle(double angle) {
-        // dont we need to do it as a command?
-
-    }
 
     public void setShooterSpeed(double speed) {
         shooterM.set(ControlMode.Velocity, speed * Constants.pulsesPerMeterS / 10, DemandType.ArbitraryFeedForward,
@@ -102,7 +98,7 @@ public class Shood extends SubsystemBase {
     }
 
     public void setHoodPosition(double a) {
-        hoodM.set(ControlMode.Position, PIDhoodPos.calculate(a * Constants.pulsesPer360angle / 360));
+        hoodM.set(ControlMode.Position, a * Constants.pulsesPer360angle / 360);
     }
 
     public void setShootPower(double p) {

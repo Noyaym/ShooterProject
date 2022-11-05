@@ -24,7 +24,6 @@ public class ShootCommand extends CommandBase {
     private double angle;
     private double speed;
     private int countdown;
-    private PIDController PID;
 
     public ShootCommand(Shood sh, Tower tow, Turret tur, boolean isAutonomus, Utils util) {
         this.lookuptablcalc = true;
@@ -33,8 +32,6 @@ public class ShootCommand extends CommandBase {
         this.tur = tur;
         this.isAutonomus = isAutonomus;
         this.util = util;
-        this.PID = new PIDController(Constants.commandKp, 
-        Constants.commandKi, Constants.commandKd);
     }
 
     @Override
@@ -50,13 +47,10 @@ public class ShootCommand extends CommandBase {
     }
 
 
-    private double PIDofV(double angle) {
-        return PID.calculate(angle - sh.getHoodAngle());
-    }
 
     @Override
     public void execute() {
-        sh.setHoodVel(PIDofV(angle));
+        sh.setHoodPosition(angle);;
         sh.setShooterSpeed(speed);
         hoodInPos = Math.abs(sh.getHoodAngle()-angle)<=Constants.ANGLE_ER;
         shooterInSpeed = Math.abs(sh.getShooterSpeed()-speed)<=Constants.SPEED_ER;
