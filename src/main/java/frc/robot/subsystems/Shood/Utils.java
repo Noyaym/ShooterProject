@@ -75,31 +75,32 @@ public class Utils {
     }
 
     public double[] decider(double disitan) {
-        ArrayList<ArrayList<Double>> posblsoultion = new ArrayList<ArrayList<Double>>(calcanglNLT(disitan));
+        ArrayList<Double> posblsoultion = new ArrayList<Double>(calcanglNLT(disitan));//made the arraylist a singel dimesion one
 
         int i = 0;
         int maxi = 0;
-        double sum = posblsoultion.get(0).get(0) * Constants.shootratio
-                + posblsoultion.get(1).get(0) * Constants.hoodratio;
-        // for(Double num : posblsoultion.get(0)){
+        double sum = posblsoultion.get(0)* Constants.shootratio
+                + posblsoultion.get(1) * Constants.hoodratio;
+        for (int j = 0; j < posblsoultion.size(); j+=2) {
+            System.out.println("shooter speed: "+posblsoultion.get(j));
+            System.out.println("shooter angle: "+posblsoultion.get(j+1));
+        
         // double sum2 =
-        // num*Constants.shootratio+posblsoultion.get(1).get(i)*Constants.hoodratio;
+        // +posblsoultion.get(j)*Constants.shootratio+posblsoultion.get(j+1)*Constants.hoodratio;
         // if(sum>sum2){
         // maxi =i;
         // }
-        // i++;
-        // }
-        double[] velang = { posblsoultion.get(0).get(maxi), posblsoultion.get(1).get(maxi) };
+        }
+        double[] velang = { posblsoultion.get(maxi), posblsoultion.get(maxi+1)};
         return velang;
 
     }
 
-    public ArrayList<ArrayList<Double>> calcanglNLT(double dist) {
-        ArrayList<ArrayList<Double>> d1 = new ArrayList<ArrayList<Double>>();
-        d1.add(new ArrayList<Double>());
-        d1.add(new ArrayList<Double>());
+    public ArrayList<Double> calcanglNLT(double dist) {
+        ArrayList<Double> d1 = new ArrayList<Double>();
+       
         for (double i = 0.01; i < 89.99; i += 0.01) {
-            double speed = calcvelNLT(Math.sqrt(3 * Constants.g * 2 /
+            double speed = calcvelNLT(Math.sqrt(Constants.maxH * Constants.g * 2 /
                     Utils.todegsin(89.999) * (Utils.todegsin(89.999) - Constants.g * Constants.K)), i, dist);
             switch ((int) speed) {
                 case 0:
@@ -107,8 +108,8 @@ public class Utils {
                     break;
 
                 default:
-                    d1.get(0).add(speed);
-                    d1.get(1).add(i);
+                    d1.add(speed);
+                    d1.add(i);
                     break;
             }
         }
@@ -119,6 +120,8 @@ public class Utils {
 
         for (double i = Constants.minspeed; i < maxspeed; i += 0.01) { // kinda think we should change the max min speed
                                                                        // to just speeds we know the robot can reach.
+                                                                       //jhony:the maximmup speed of the falcon is very high 
+                                                                       //BTW the fulcon is accelratin isnt it , does he have a maximum speed?
             double distV = calcdist(deg, i);
             if (Math.abs(distV - dist) <= 0.1 && calcH(i, deg) < Constants.maxH) { // added the H thing to the if
                 return i;
