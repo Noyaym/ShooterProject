@@ -100,8 +100,8 @@ public class Utils {
         ArrayList<Double> d1 = new ArrayList<Double>();
        
         for (double i = 0.01; i < 89.99; i += 0.01) {
-            double speed = calcvelNLT(Math.sqrt(Constants.maxH * Constants.g * 2 /
-                    Utils.todegsin(89.999) * (Utils.todegsin(89.999) - Constants.g * Constants.K)), i, dist);
+            double speed = calcvelNLT(Math.min(Constants.maxshooterspeed,Math.min(Constants.maxanliticalequtionvelocity,
+            Math.sqrt(Constants.maxH * Constants.g * 2 / Utils.todegsin(89.999) * (Utils.todegsin(89.999) - Constants.g * Constants.K)))), i, dist);
             switch ((int) speed) {
                 case 0:
 
@@ -120,8 +120,8 @@ public class Utils {
 
         for (double i = Constants.minspeed; i < maxspeed; i += 0.01) { // kinda think we should change the max min speed
                                                                        // to just speeds we know the robot can reach.
-                                                                       //jhony:the maximmup speed of the falcon is very high 
-                                                                       //BTW the fulcon is accelratin isnt it , does he have a maximum speed?
+                                                                       //jhony:the maximmup speed of the falcon is very high and depndent on the gear ratio
+                                                                       //
             double distV = calcdist(deg, i);
             if (Math.abs(distV - dist) <= 0.1 && calcH(i, deg) < Constants.maxH) { // added the H thing to the if
                 return i;
@@ -166,6 +166,9 @@ public class Utils {
             return 0;
         }
 
+    }
+    public static double convertshooterspeedtoballspeed(double shooterspeed){
+        return shooterspeed*Constants.shooterexitspeedgradient+Constants.shooterexitspeedintercept;
     }
 
 }

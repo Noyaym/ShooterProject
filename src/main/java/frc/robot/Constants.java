@@ -70,8 +70,11 @@ public final class Constants {
     Utils.todegsin(0.001)*(Utils.todegsin(0.001)-g*K));
     public static double hoodratio =0;
     public static double shootratio =0;
-
+    public static double maxshooterspeed =-1;
+    public static double maxanliticalequtionvelocity = Utils.convertshooterspeedtoballspeed(52);
     public static final double maxH = 0;
+    public static double shooterexitspeedgradient  =-1;
+    public static double shooterexitspeedintercept =-1;
 
 
 
